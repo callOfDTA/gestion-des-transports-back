@@ -127,7 +127,7 @@
 				<jdbc.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</jdbc.dialect>
 				<jdbc.connections.max.active>2</jdbc.connections.max.active>
 				<app.version>
-					create-drop<!-- ${env.COMMIT_ID} -->
+					${env.COMMIT_ID}
 				</app.version>
 			</properties>
 			<dependencies>
