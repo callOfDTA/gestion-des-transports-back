@@ -1,10 +1,12 @@
 package dev.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,31 +22,26 @@ public class AnnonceController {
 	@Autowired
 	private AnnonceRepository annonceRepo;
 
+	/**
+	 * 
+	 * @return la liste de toutes les annonces de covoiturage
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll() {
-
-		List<Annonce> la = this.annonceRepo.findAll();
-
-		// la.stream().forEach(a -> System.out.println(a.toString()));
-		return ResponseEntity.ok(la); // this.annonceRepo.findAll();
+		return ResponseEntity.ok(this.annonceRepo.findAll());
 	}
 
-	// @RequestMapping(value = "{pseudo}", method = RequestMethod.PATCH,
-	// consumes = MediaType.APPLICATION_JSON_VALUE)
-	// public ResponseEntity<?> updateScore(@RequestBody ActionVM actionVM,
-	// @PathVariable("pseudo") String pseudo) {
-	// Collegue collegue = collegueRepo.findByPseudo(pseudo);
-	// if (collegue == null) {
-	// return ResponseEntity.notFound().build();
-	// }
-	//
-	// if (actionVM.getAction().equals(Avis.AIMER)) {
-	// collegue.setScore(collegue.getScore() + 10);
-	// } else if (actionVM.getAction().equals(Avis.DETESTER)) {
-	// collegue.setScore(collegue.getScore() - 5);
-	// }
-	// collegueRepo.save(collegue);
-	//
-	// return ResponseEntity.ok(collegue);
-	// }
+	/**
+	 * 
+	 * @param matricule
+	 *            du conducteur
+	 * @return la liste des annonce de covoiturage publier par le conducteur
+	 */
+	@RequestMapping(value = "{matricule}", method = RequestMethod.GET)
+	public ResponseEntity<?> findAnnonceByMatricule(@PathVariable("matricule") String matricule) {
+		List<Annonce> la = this.annonceRepo.findAll();
+		la = la.stream().filter(annonce -> annonce.getConducteur().getMatricule().equals(matricule))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok(la);
+	}
 }
