@@ -1,7 +1,5 @@
 package dev.entite;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,10 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties("conducteur")
 public class Personne {
 
 	@Id
@@ -37,18 +36,6 @@ public class Personne {
 
 	@Column(name = "PHOTO")
 	private String photo;
-
-	@OneToMany(mappedBy = "conducteur")
-	private List<Annonce> annoncePublier;
-
-	@ManyToMany(mappedBy = "passagers")
-	private List<Annonce> covoiturageReserver;
-
-	@OneToMany(mappedBy = "chauffeur")
-	private List<ReservationVehicule> reservationChauffeur;
-
-	@OneToMany(mappedBy = "client")
-	private List<ReservationVehicule> reservationClient;
 
 	/**
 	 * 
@@ -196,63 +183,4 @@ public class Personne {
 		this.photo = photo;
 	}
 
-	/**
-	 * @return the annoncePublier
-	 */
-	public List<Annonce> getAnnoncePublier() {
-		return annoncePublier;
-	}
-
-	/**
-	 * @param annoncePublier
-	 *            the annoncePublier to set
-	 */
-	public void setAnnoncePublier(List<Annonce> annoncePublier) {
-		this.annoncePublier = annoncePublier;
-	}
-
-	/**
-	 * @return the covoiturageReserver
-	 */
-	public List<Annonce> getCovoiturageReserver() {
-		return covoiturageReserver;
-	}
-
-	/**
-	 * @param covoiturageReserver
-	 *            the covoiturageReserver to set
-	 */
-	public void setCovoiturageReserver(List<Annonce> covoiturageReserver) {
-		this.covoiturageReserver = covoiturageReserver;
-	}
-
-	/**
-	 * @return the reservationChauffeur
-	 */
-	public List<ReservationVehicule> getReservationChauffeur() {
-		return reservationChauffeur;
-	}
-
-	/**
-	 * @param reservationChauffeur
-	 *            the reservationChauffeur to set
-	 */
-	public void setReservationChauffeur(List<ReservationVehicule> reservationChauffeur) {
-		this.reservationChauffeur = reservationChauffeur;
-	}
-
-	/**
-	 * @return the reservationClient
-	 */
-	public List<ReservationVehicule> getReservationClient() {
-		return reservationClient;
-	}
-
-	/**
-	 * @param reservationClient
-	 *            the reservationClient to set
-	 */
-	public void setReservationClient(List<ReservationVehicule> reservationClient) {
-		this.reservationClient = reservationClient;
-	}
 }

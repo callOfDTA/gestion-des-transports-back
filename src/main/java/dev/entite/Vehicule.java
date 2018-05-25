@@ -1,7 +1,5 @@
 package dev.entite;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,7 +7,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Vehicule {
@@ -38,12 +35,6 @@ public class Vehicule {
 
 	@Enumerated(EnumType.STRING)
 	private CategorieVehicule categorie;
-
-	@OneToMany(mappedBy = "vehicule")
-	private List<Annonce> annonceCovoiturage;
-
-	@OneToMany(mappedBy = "vehicule")
-	private List<ReservationVehicule> reservationVoiture;
 
 	/**
 	 * 
@@ -189,36 +180,6 @@ public class Vehicule {
 	 */
 	public void setCategorie(CategorieVehicule categorie) {
 		this.categorie = categorie;
-	}
-
-	/**
-	 * @return the annonceCovoiturage
-	 */
-	public List<Annonce> getAnnonceCovoiturage() {
-		return annonceCovoiturage;
-	}
-
-	/**
-	 * @param annonceCovoiturage
-	 *            the annonceCovoiturage to set
-	 */
-	public void setAnnonceCovoiturage(List<Annonce> annonceCovoiturage) {
-		this.annonceCovoiturage = annonceCovoiturage;
-	}
-
-	/**
-	 * @return the reservationVoiture
-	 */
-	public List<ReservationVehicule> getReservationVoiture() {
-		return reservationVoiture;
-	}
-
-	/**
-	 * @param reservationVoiture
-	 *            the reservationVoiture to set
-	 */
-	public void setReservationVoiture(List<ReservationVehicule> reservationVoiture) {
-		this.reservationVoiture = reservationVoiture;
 	}
 
 }
