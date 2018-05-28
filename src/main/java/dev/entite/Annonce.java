@@ -17,7 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties("annoncePublier")
 public class Annonce {
 
 	@Id
@@ -236,6 +239,18 @@ public class Annonce {
 	 */
 	public void setPassagers(List<Personne> passagers) {
 		this.passagers = passagers;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Annonce [heure=" + heure + ", duree=" + duree + ", distance=" + distance + ", placeDispo=" + placeDispo
+				+ ", adresseDepart=" + adresseDepart + ", adresseArriver=" + adresseArriver + ", conducteur="
+				+ conducteur + ", vehicule=" + vehicule + ", passagers=" + passagers + "]";
 	}
 
 }
