@@ -17,10 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 @Entity
-@JsonIgnoreProperties("annoncePublier")
 public class Annonce {
 
 	@Id
