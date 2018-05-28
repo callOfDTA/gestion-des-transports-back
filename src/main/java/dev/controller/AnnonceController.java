@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.entite.Annonce;
+import dev.entite.Personne;
 import dev.repository.AnnonceRepository;
 
 @RestController
@@ -21,6 +22,8 @@ public class AnnonceController {
 
 	@Autowired
 	private AnnonceRepository annonceRepo;
+
+	List<Personne> passagers;
 
 	/**
 	 * 
@@ -42,6 +45,17 @@ public class AnnonceController {
 		List<Annonce> la = this.annonceRepo.findAll();
 		la = la.stream().filter(annonce -> annonce.getConducteur().getMatricule().equals(matricule))
 				.collect(Collectors.toList());
+		return ResponseEntity.ok(la);
+	}
+
+	@RequestMapping(value = "/passager/{matricule}", method = RequestMethod.GET)
+	public ResponseEntity<?> getReservationByMatricule(@PathVariable("matricule") String matricule) {
+		List<Annonce> la = this.annonceRepo.findAll();
+		System.out.println(matricule);
+		la = la.stream().filter(annonce -> {
+			List<Personne> passagers = annonce.getPassagers();
+			return passagers.stream().anyMatch(passager -> passager.getMatricule().equals(matricule));
+		}).collect(Collectors.toList());
 		return ResponseEntity.ok(la);
 	}
 }
