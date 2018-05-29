@@ -17,8 +17,10 @@ import org.springframework.web.client.RestTemplate;
 import dev.controller.viewmodel.ReservationCovoiturageVM;
 import dev.entite.Annonce;
 import dev.entite.Personne;
+import dev.entite.Vehicule;
 import dev.repository.AnnonceRepository;
 import dev.repository.PersonneRepository;
+import dev.repository.VehiculeRepository;
 
 @RestController
 @CrossOrigin
@@ -32,6 +34,9 @@ public class AnnonceController {
 
 	@Autowired
 	private PersonneRepository personneRepo;
+
+	@Autowired
+	private VehiculeRepository vehiculeRepo;
 
 	/**
 	 * 
@@ -109,4 +114,20 @@ public class AnnonceController {
 		return ResponseEntity.ok(annonce);
 
 	}
+
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> creerAnnonce(@RequestBody Annonce annonce) {
+		Vehicule v = annonce.getVehicule();
+		Vehicule v2;
+
+		personneRepo.save(annonce.getConducteur());
+
+		if ((v2 = vehiculeRepo.findByImmatriculation(v.getImmatriculation())) != null)
+			v.setId(v2.getId());
+		vehiculeRepo.save(v);
+		annonce.getPassagers().stream().forEach(p -> personneRepo.save(p));
+		annonceRepo.save(annonce);
+		return ResponseEntity.ok(annonce);
+	}
+
 }
