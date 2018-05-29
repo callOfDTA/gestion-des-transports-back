@@ -17,10 +17,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@JsonIgnoreProperties("annoncePublier")
 public class Annonce {
 
 	@Id
@@ -28,6 +27,7 @@ public class Annonce {
 	private int id;
 
 	@Column(name = "HEURE", nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime heure;
 
 	@Column(name = "DUREE", nullable = false)

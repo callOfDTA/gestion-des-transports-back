@@ -61,6 +61,9 @@ public class StartupDataInit {
 		Annonce a2 = new Annonce(v3, LocalDateTime.now(), new Adresse("rue 18", 12345, "SuperVille"),
 				new Adresse("rue 4", 54321, "VilleMoinsBien"), LocalTime.of(2, 15), Double.valueOf(240), p2,
 				v3.getNbPlace());
+		Annonce a3 = new Annonce(v2, LocalDateTime.of(2018, 07, 14, 9, 20), new Adresse("rue 42", 12345, "BouzeVille"),
+				new Adresse("rue 5", 54321, "VilleDeClochard"), LocalTime.of(1, 15), Double.valueOf(110), p3,
+				v2.getNbPlace());
 
 		ReservationVehicule rv1 = new ReservationVehicule(LocalDateTime.now(), LocalDateTime.of(2018, 05, 25, 8, 50),
 				true, v1, p2, p3);
@@ -80,6 +83,7 @@ public class StartupDataInit {
 			vehiculeRepo.save(v3);
 			annonceRepo.save(a1);
 			annonceRepo.save(a2);
+			annonceRepo.save(a3);
 			reservationRepo.save(rv1);
 		}
 

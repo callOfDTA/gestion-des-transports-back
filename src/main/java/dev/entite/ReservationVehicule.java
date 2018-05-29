@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class ReservationVehicule {
 
@@ -18,10 +20,12 @@ public class ReservationVehicule {
 	private int id;
 
 	@Column(name = "DATE_DEBUT")
-	private LocalDateTime deteDebut;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime dateDebut;
 
 	@Column(name = "DATE_FIN")
-	private LocalDateTime deteFin;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime dateFin;
 
 	@Column(name = "AVEC_CHAUFFEUR")
 	private boolean avecChauffeur;
@@ -54,8 +58,8 @@ public class ReservationVehicule {
 	 */
 	public ReservationVehicule(LocalDateTime deteDebut, LocalDateTime deteFin, boolean avecChauffeur, Vehicule vehicule,
 			Personne chauffeur, Personne client) {
-		this.deteDebut = deteDebut;
-		this.deteFin = deteFin;
+		this.dateDebut = deteDebut;
+		this.dateFin = deteFin;
 		this.avecChauffeur = avecChauffeur;
 		this.vehicule = vehicule;
 		this.chauffeur = chauffeur;
@@ -80,31 +84,31 @@ public class ReservationVehicule {
 	/**
 	 * @return the deteDebut
 	 */
-	public LocalDateTime getDeteDebut() {
-		return deteDebut;
+	public LocalDateTime getDateDebut() {
+		return dateDebut;
 	}
 
 	/**
 	 * @param deteDebut
 	 *            the deteDebut to set
 	 */
-	public void setDeteDebut(LocalDateTime deteDebut) {
-		this.deteDebut = deteDebut;
+	public void setDateDebut(LocalDateTime deteDebut) {
+		this.dateDebut = deteDebut;
 	}
 
 	/**
 	 * @return the deteFin
 	 */
-	public LocalDateTime getDeteFin() {
-		return deteFin;
+	public LocalDateTime getDateFin() {
+		return dateFin;
 	}
 
 	/**
 	 * @param deteFin
 	 *            the deteFin to set
 	 */
-	public void setDeteFin(LocalDateTime deteFin) {
-		this.deteFin = deteFin;
+	public void setDateFin(LocalDateTime deteFin) {
+		this.dateFin = deteFin;
 	}
 
 	/**

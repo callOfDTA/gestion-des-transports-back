@@ -6,4 +6,5 @@ import dev.entite.Annonce;
 
 public interface AnnonceRepository extends JpaRepository<Annonce, Integer> {
 
+	Annonce findById(int id);
 }
