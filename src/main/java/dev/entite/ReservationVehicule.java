@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class ReservationVehicule {
 
@@ -18,9 +20,11 @@ public class ReservationVehicule {
 	private int id;
 
 	@Column(name = "DATE_DEBUT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateDebut;
 
 	@Column(name = "DATE_FIN")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateFin;
 
 	@Column(name = "AVEC_CHAUFFEUR")
