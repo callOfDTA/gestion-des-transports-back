@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Annonce {
 
@@ -25,8 +27,10 @@ public class Annonce {
 	private int id;
 
 	@Column(name = "HEURE", nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime heure;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	@Column(name = "DUREE", nullable = false)
 	private LocalTime duree;
 
@@ -236,6 +240,18 @@ public class Annonce {
 	 */
 	public void setPassagers(List<Personne> passagers) {
 		this.passagers = passagers;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Annonce [heure=" + heure + ", duree=" + duree + ", distance=" + distance + ", placeDispo=" + placeDispo
+				+ ", adresseDepart=" + adresseDepart + ", adresseArriver=" + adresseArriver + ", conducteur="
+				+ conducteur + ", vehicule=" + vehicule + ", passagers=" + passagers + "]";
 	}
 
 }
