@@ -119,13 +119,20 @@ public class AnnonceController {
 	public ResponseEntity<?> creerAnnonce(@RequestBody Annonce annonce) {
 		Vehicule v = annonce.getVehicule();
 		Vehicule v2;
+		Personne p = annonce.getConducteur();
+		Personne p2;
 
-		personneRepo.save(annonce.getConducteur());
+		if ((p2 = personneRepo.findByMatricule(p.getMatricule())) != null) {
+			p.setId(p2.getId());
+		}
+
+		personneRepo.save(p);
 
 		if ((v2 = vehiculeRepo.findByImmatriculation(v.getImmatriculation())) != null)
 			v.setId(v2.getId());
 		vehiculeRepo.save(v);
-		annonce.getPassagers().stream().forEach(p -> personneRepo.save(p));
+		if (annonce.getPassagers() != null)
+			annonce.getPassagers().stream().forEach(person -> personneRepo.save(person));
 		annonceRepo.save(annonce);
 		return ResponseEntity.ok(annonce);
 	}

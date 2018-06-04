@@ -30,6 +30,7 @@ public class Annonce {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime heure;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	@Column(name = "DUREE", nullable = false)
 	private LocalTime duree;
 
