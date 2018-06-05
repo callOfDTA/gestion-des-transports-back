@@ -71,7 +71,6 @@ public class AnnonceController {
 	@RequestMapping(value = "/passager/{matricule}", method = RequestMethod.GET)
 	public ResponseEntity<?> getReservationByMatricule(@PathVariable("matricule") String matricule) {
 		List<Annonce> la = this.annonceRepo.findAll();
-		System.out.println(matricule);
 		la = la.stream().filter(annonce -> {
 			List<Personne> passagers = annonce.getPassagers();
 			return passagers.stream().anyMatch(passager -> passager.getMatricule().equals(matricule));
@@ -89,12 +88,10 @@ public class AnnonceController {
 	@RequestMapping(value = "/passager", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> reservationByMatricule(@RequestBody ReservationCovoiturageVM data) {
 		RestTemplate restTemplate = new RestTemplate();
-
 		Personne nouveauPassager = this.personneRepo.findByMatricule(data.getPassagerMatricule());
 		if (nouveauPassager == null) {
 			Personne[] tab = restTemplate.getForObject(URI_COL + "?matricule=" + data.getPassagerMatricule(),
 					Personne[].class);
-
 			if (tab.length == 0) {
 				return ResponseEntity.badRequest().body("Le matricule spécifié n'a pas été trouvé");
 			}
